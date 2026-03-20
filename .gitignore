@@ -1,4 +1,5 @@
 **/*.zip
 **/.direnv
+**/.parcel-cache
 pr1
 pr2
