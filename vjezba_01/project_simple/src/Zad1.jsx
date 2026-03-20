@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Dropdown from "./Dropdown";
 
@@ -48,6 +48,11 @@ const App = () => {
   // Get products for selected category
   const products = productsByCategory[selectedCategory];
 
+  // useEffect() hook (function_to_do_if_notice_update, variable to watch )
+  useEffect(() => {
+    setSelectedProduct(products[0]);
+  }, [selectedCategory]);
+
   return (
     <div
       style={{
@@ -61,20 +66,33 @@ const App = () => {
 
       <div style={{ marginBottom: "20px" }}>
         <h3>Select Category:</h3>
-        <Dropdown
-          options={categories}
+        <select
           value={selectedCategory}
-          onChange={setSelectedCategory}
-        />
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          style={{ padding: "10px", fontSize: "16px", width: "250px" }}
+        >
+          {categories.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div style={{ marginBottom: "20px" }}>
         <h3>Select Product:</h3>
-        <Dropdown
-          options={products}
+
+        <select
           value={selectedProduct}
-          onChange={setSelectedProduct}
-        />
+          onChange={(e) => setSelectedProduct(e.target.value)}
+          style={{ padding: "10px", fontSize: "16px", width: "250px" }}
+        >
+          {products.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div

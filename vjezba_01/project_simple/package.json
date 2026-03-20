@@ -1,11 +1,11 @@
 {
-  "name": "projectsetup",
+  "name": "vjezba_01",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
-    "dev": "parcel src/index.html"
+    "dev_zad1": "parcel src/zad1.html",
+    "dev_zad2": "parcel src/zad2.html"
   },
   "author": "",
   "license": "ISC",

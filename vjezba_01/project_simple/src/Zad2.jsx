@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Dropdown from "./Dropdown";
 
@@ -47,6 +47,11 @@ const App = () => {
 
   // Get products for selected category
   const products = productsByCategory[selectedCategory];
+  
+  // useEffect() hook (function_to_do_if_notice_update, variable to watch )
+  useEffect(() => {
+    setSelectedProduct(products[0]);
+  }, [selectedCategory]);
 
   return (
     <div
