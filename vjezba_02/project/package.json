@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "dev": "parcel src/zad1.html",
+    "dev_zad1": "parcel src/zad1.html",
     "dev_zad2": "parcel src/zad2.html"
   },
   "author": "",

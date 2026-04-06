@@ -7,6 +7,7 @@ pkgs.mkShellNoCC {
      nodejs
    
 
+     python311
      nixd
      nil
   ];

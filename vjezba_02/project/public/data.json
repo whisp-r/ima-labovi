@@ -1,0 +1,26 @@
+{
+  "Hygiene": {
+    "Hair Care": ["Shampoo", "Conditioner"],
+    "Oral Care": ["Toothpaste", "Mouthwash"],
+    "Body Care": ["Soap", "Body Wash", "Deodorant"]
+  },
+  "Electronics": {
+    "Charging": ["Cables", "Chargers", "Power Banks"],
+    "Audio": ["Headphones", "Earbuds"],
+    "Accessories": ["USB Drives", "Adapters"]
+  },
+  "Food": {
+    "Snacks": ["Chips", "Pretzels", "Popcorn"],
+    "Beverages": ["Soda", "Juice", "Water"],
+    "Frozen": ["Frozen Pizza", "Ice Cream"],
+    "Produce": ["Apples", "Bananas", "Salad"],
+    "Canned": ["Beans", "Soup", "Tuna"],
+    "Bakery": ["Bread", "Croissants", "Muffins"]
+  },
+  "Household": {
+    "Cleaning": ["Cleaning Supplies", "Laundry Detergent"],
+    "Kitchen": ["Kitchen Tools", "Storage Boxes"],
+    "Lighting": ["Light Bulbs"],
+    "Batteries": ["AA Batteries", "AAA Batteries"]
+  }
+}
