@@ -1,0 +1,29 @@
+{
+  "name": "vjezba_02",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "dev": "parcel src/zad1.html",
+    "dev_zad2": "parcel src/zad2.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.0.1",
+    "prettier": "^2.4.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0"
+  },
+  "browserslists": [
+    "last 4 Chrome versions"
+  ]
+}
