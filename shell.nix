@@ -1,14 +1,18 @@
 let
-  pkgs = import <nixpkgs> {};
+  pkgs = import <nixpkgs> { };
+
 in
 pkgs.mkShellNoCC {
   packages = with pkgs; [
-     git
-     nodejs
-   
+    git
+    nodejs
 
-     python311
-     nixd
-     nil
+    python311
+    nixd
+    nil
+    # androidenv.androidPkgs.androidsdk
   ];
+
+  # ANDROID_HOME = "${pkgs.androidenv.androidPkgs.androidsdk}/libexec/android-sdk";
+  # ANDROID_NDK_ROOT = "${ANDROID_HOME}/ndk-bundle";
 }
