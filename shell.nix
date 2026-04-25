@@ -11,6 +11,7 @@ pkgs.mkShellNoCC {
     nixd
     nil
     # androidenv.androidPkgs.androidsdk
+    # steam-run
   ];
 
   # ANDROID_HOME = "${pkgs.androidenv.androidPkgs.androidsdk}/libexec/android-sdk";
