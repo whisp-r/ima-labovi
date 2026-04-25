@@ -4,6 +4,7 @@
 pr1
 pr2
 **/*.vscode
+
 # Devenv
 .devenv*
 devenv.local.nix
