@@ -16,7 +16,6 @@ const ColorBox = ({ colorName, hexColor }) => {
 
 const styles = StyleSheet.create({
   color_box: {
-    alignSelf: "stretch",
     paddingTop: 50,
     marginTop: 20,
     alignSelf: "stretch",
