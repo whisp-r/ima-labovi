@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
+    maxWidth: 400,
   },
   button: {
     backgroundColor: "#7200d5",
@@ -73,6 +74,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: "100%",
     alignItems: "center",
+
+    maxWidth: 400,
   },
   buttonText: {
     color: "#fff",
