@@ -1,33 +1,45 @@
-import { FlatList } from "react-native";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
 import ColorBox from "../components/ColorBox";
 
-const COLORS = [
-  { colorName: "Base03", hexCode: "#002b36" },
-  { colorName: "Base02", hexCode: "#073642" },
-  { colorName: "Base01", hexCode: "#586e75" },
-  { colorName: "Base00", hexCode: "#657b83" },
-  { colorName: "Base0", hexCode: "#839496" },
-  { colorName: "Base1", hexCode: "#93a1a1" },
-  { colorName: "Base2", hexCode: "#eee8d5" },
-  { colorName: "Base3", hexCode: "#fdf6e3" },
-  { colorName: "Yellow", hexCode: "#b58900" },
-  { colorName: "Orange", hexCode: "#cb4b16" },
-  { colorName: "Red", hexCode: "#dc322f" },
-  { colorName: "Magenta", hexCode: "#d33682" },
-  { colorName: "Violet", hexCode: "#6c71c4" },
-  { colorName: "Blue", hexCode: "#268bd2" },
-  { colorName: "Cyan", hexCode: "#2aa198" },
-  { colorName: "Green", hexCode: "#859900" },
-];
-
 export default function AboutScreen() {
+  const [colors, setColors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // fetch("http://demo7168568.mockable.io/colors")
+    // fetch("http://192.168.1.36:3000/data.json/colors")
+    fetch("http://demo4770426.mockable.io/colors")
+      .then((res) => res.json())
+      .then((data) => {
+        setColors(data.colors);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <ActivityIndicator size="large" />;
+
   return (
-    <FlatList
-      data={COLORS}
-      keyExtractor={(item) => item.colorName}
-      renderItem={({ item }) => (
-        <ColorBox colorName={item.colorName} hexColor={item.hexCode} />
-      )}
-    />
+    <View>
+      <FlatList
+        style={styles.margin}
+        data={colors}
+        keyExtractor={(item: any) => item.colorName}
+        renderItem={({ item }) => (
+          <ColorBox colorName={item.colorName} hexColor={item.hexCode} />
+        )}
+      />
+      <View style={styles.margin}></View>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  margin: {
+    marginBottom: 15,
+  },
+});
