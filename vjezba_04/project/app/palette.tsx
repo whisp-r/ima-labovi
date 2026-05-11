@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import { ActivityIndicator, FlatList } from "react-native";
 import ColorBox from "../components/ColorBox";
 
 export default function AboutScreen() {
@@ -24,22 +24,12 @@ export default function AboutScreen() {
   if (loading) return <ActivityIndicator size="large" />;
 
   return (
-    <View>
-      <FlatList
-        style={styles.margin}
-        data={colors}
-        keyExtractor={(item: any) => item.colorName}
-        renderItem={({ item }) => (
-          <ColorBox colorName={item.colorName} hexColor={item.hexCode} />
-        )}
-      />
-      <View style={styles.margin}></View>
-    </View>
+    <FlatList
+      data={colors}
+      keyExtractor={(item: any) => item.colorName}
+      renderItem={({ item }) => (
+        <ColorBox colorName={item.colorName} hexColor={item.hexCode} />
+      )}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  margin: {
-    marginBottom: 15,
-  },
-});
