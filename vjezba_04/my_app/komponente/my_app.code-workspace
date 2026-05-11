@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "my_app",
+			"path": "../../../../temp/my_app"
+		},
+		{
+			"name": "ekrani",
+			"path": "../ekrani"
+		},
+		{
+			"name": "komponente",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
