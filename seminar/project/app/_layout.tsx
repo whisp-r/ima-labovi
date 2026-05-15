@@ -1,0 +1,33 @@
+import { Stack } from "expo-router";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+
+import "../firebaseConfig";
+
+const auth = getAuth();
+
+export default function RootLayout() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(user ? true : false);
+    });
+    return unsubscribe;
+  }, []);
+
+  if (isLoggedIn === null) return null;
+  return (
+    <Stack>
+      <Stack.Protected guard={isLoggedIn}>
+        <Stack.Screen name="index" options={{ title: "Home" }} />
+        <Stack.Screen name="palette" options={{ title: "Palette" }} />
+      </Stack.Protected>
+      <Stack.Protected guard={!isLoggedIn}>
+        {/* <Stack.Screen name="sign_in" options={{ title: "Sign In" }} /> */}
+        {/* <Stack.Screen name="sign_up" options={{ title: "Sign Up" }} /> */}
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack.Protected>
+    </Stack>
+  );
+}
