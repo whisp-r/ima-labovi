@@ -21,7 +21,9 @@ export default function RootLayout() {
     <Stack>
       <Stack.Protected guard={isLoggedIn}>
         <Stack.Screen name="index" options={{ title: "Home" }} />
-        <Stack.Screen name="palette" options={{ title: "Palette" }} />
+        {/* <Stack.Screen name="palette" options={{ title: "Palette" }} /> */}
+        <Stack.Screen name="add_task" options={{ title: "Add Task" }} />
+
       </Stack.Protected>
       <Stack.Protected guard={!isLoggedIn}>
         {/* <Stack.Screen name="sign_in" options={{ title: "Sign In" }} /> */}

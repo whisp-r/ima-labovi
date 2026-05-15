@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList } from "react-native";
 import ColorBox from "../components/ColorBox";
 
-export default function AboutScreen() {
+export default function Page() {
   const [colors, setColors] = useState([]);
   const [loading, setLoading] = useState(true);
 
