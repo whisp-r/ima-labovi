@@ -1,16 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import "../firebaseConfig";
 
-const auth = getAuth();
-const db = getFirestore();
-
-interface Category {
-  id: string;
-  name: string;
-}
+import { auth, db } from "../firebaseConfig";
+import { Category } from "../components/Types";
 
 interface Props {
   selected: string;
@@ -31,7 +24,7 @@ export default function CategoryPicker({ selected, onSelect }: Props) {
           name: doc.data().name,
         }));
         setCategories(cats);
-      }
+      },
     );
     return unsubscribe;
   }, [userId]);
@@ -44,7 +37,9 @@ export default function CategoryPicker({ selected, onSelect }: Props) {
           style={[styles.chip, selected === cat.name && styles.chipActive]}
           onPress={() => onSelect(cat.name)}
         >
-          <Text style={[styles.text, selected === cat.name && styles.textActive]}>
+          <Text
+            style={[styles.text, selected === cat.name && styles.textActive]}
+          >
             {cat.name}
           </Text>
         </TouchableOpacity>
@@ -56,8 +51,12 @@ export default function CategoryPicker({ selected, onSelect }: Props) {
 const styles = StyleSheet.create({
   container: { flexDirection: "row", flexWrap: "wrap", marginBottom: 16 },
   chip: {
-    paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20,
-    backgroundColor: "#f0f0f0", marginRight: 8, marginBottom: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: "#f0f0f0",
+    marginRight: 8,
+    marginBottom: 8,
   },
   chipActive: { backgroundColor: "#007bff" },
   text: { color: "#333" },

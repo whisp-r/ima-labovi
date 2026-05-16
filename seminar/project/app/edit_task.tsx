@@ -17,20 +17,13 @@ import {
   collection,
 } from "firebase/firestore";
 
-import "../firebaseConfig";
-import { getAuth } from "firebase/auth";
+import { auth, db } from "../firebaseConfig";
 import CategoryPicker from "../components/CategoryPicker";
 import { styles } from "../styles/shared";
-
-const db = getFirestore();
-const auth = getAuth();
+import { Category } from "../components/Types";
 
 const userId = auth.currentUser?.uid;
 
-interface Category {
-  id: string;
-  name: string;
-}
 
 export default function EditTask() {
   const router = useRouter();

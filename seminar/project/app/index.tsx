@@ -16,26 +16,11 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import CategoryPicker from "../components/CategoryPicker";
 import { styles } from "../styles/shared";
-import "../firebaseConfig";
-import { getAuth } from "firebase/auth";
+import { auth, db } from "../firebaseConfig";
 
-const db = getFirestore();
-const auth = getAuth();
+import { Task, Category } from "../components/Types";
 
 const userId = auth.currentUser?.uid;
-
-interface Category {
-  id: string;
-  name: string;
-}
-
-interface Task {
-  id: string;
-  name: string;
-  description: string;
-  done: boolean;
-  category: string;
-}
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
