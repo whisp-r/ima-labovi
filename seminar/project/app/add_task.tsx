@@ -1,31 +1,33 @@
+import { useRouter } from "expo-router";
+import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import {
-  View,
+  Alert,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Alert,
+  View
 } from "react-native";
-import { useRouter } from "expo-router";
-import { collection, addDoc } from "firebase/firestore";
-import { auth, db } from "../firebaseConfig";
 import CategoryPicker from "../components/CategoryPicker";
 import { styles } from "../styles/shared";
 
+import { auth, db } from "../firebaseConfig";
+const userId = auth.currentUser!.uid;
+
 export default function AddTask() {
   const router = useRouter();
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Personal");
 
-  const handleAdd = async () => {
+  const handleAdd = () => {
     if (!name.trim()) {
       Alert.alert("Error", "Task name is required");
       return;
     }
 
-    await addDoc(collection(db, "users", auth.currentUser!.uid, "tasks"), {
+    addDoc(collection(db, "users", userId, "tasks"), {
       name: name.trim(),
       description: description.trim(),
       done: false,

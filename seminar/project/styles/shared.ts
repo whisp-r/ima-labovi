@@ -15,18 +15,7 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  addButton: {
-    backgroundColor: "#28a745",
-    padding: 14,
-    borderRadius: 8,
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  addButtonText: {
-    color: "#fff",
-    fontWeight: "600",
-    fontSize: 16,
-  },
+
   filterContainer: {
     flexDirection: "row",
     marginBottom: 16,
@@ -85,6 +74,8 @@ export const styles = StyleSheet.create({
   description: { height: 100, textAlignVertical: "top" },
   statusButton: { padding: 14, alignItems: "center", marginBottom: 16 },
   statusText: { fontSize: 18 },
+  
+  buttonText: { color: "#fff", fontWeight: "600", fontSize: 16 },
   button: {
     backgroundColor: "#007bff",
     padding: 16,
@@ -92,13 +83,17 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 12,
   },
-  buttonText: { color: "#fff", fontWeight: "600", fontSize: 16 },
   deleteButton: {
     backgroundColor: "#dc3545",
     padding: 16,
     borderRadius: 8,
-    alignItems: "center",
+    alignItems: "center"
   },
-  deleteText: { color: "#fff", fontWeight: "600", fontSize: 16 },
-
+  addButton: {
+    backgroundColor: "#28a745",
+    padding: 14,
+    borderRadius: 8,
+    alignItems: "center",
+    marginBottom: 16,
+  },
 });

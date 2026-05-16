@@ -1,29 +1,20 @@
-import { useEffect, useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from "react-native";
-import { useRouter, useLocalSearchParams } from "expo-router";
-import {
-  doc,
-  updateDoc,
-  deleteDoc,
-  getFirestore,
-  onSnapshot,
   collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  updateDoc,
 } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { auth, db } from "../firebaseConfig";
-import CategoryPicker from "../components/CategoryPicker";
 import { styles } from "../styles/shared";
 import { Category } from "../components/Types";
+import CategoryPicker from "../components/CategoryPicker";
 
-const userId = auth.currentUser?.uid;
-
+import { auth, db } from "../firebaseConfig";
+const userId = auth.currentUser!.uid;
 
 export default function EditTask() {
   const router = useRouter();
@@ -119,7 +110,7 @@ export default function EditTask() {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-        <Text style={styles.deleteText}>Delete Task</Text>
+        <Text style={styles.buttonText}>Delete Task</Text>
       </TouchableOpacity>
     </View>
   );
