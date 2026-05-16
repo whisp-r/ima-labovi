@@ -10,3 +10,5 @@ export interface Category {
   id: string;
   name: string;
 }
+
+export const ALL_CATEGORY = "All";

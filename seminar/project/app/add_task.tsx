@@ -1,25 +1,20 @@
 import { useRouter } from "expo-router";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
-import {
-  Alert,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
-} from "react-native";
-import CategoryPicker from "../components/CategoryPicker";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "../styles/shared";
 
+import { ALL_CATEGORY } from "@/components/Types";
+import TaskForm from "../components/TaskForm";
 import { auth, db } from "../firebaseConfig";
-const userId = auth.currentUser!.uid;
 
 export default function AddTask() {
+  const userId = auth.currentUser!.uid;
   const router = useRouter();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Personal");
+  const [category, setCategory] = useState(ALL_CATEGORY);
 
   const handleAdd = () => {
     if (!name.trim()) {
@@ -39,23 +34,14 @@ export default function AddTask() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Task Name</Text>
-      <TextInput
-        style={styles.input}
-        value={name}
-        onChangeText={setName}
-        placeholder="Enter task name"
+      <TaskForm
+        name={name}
+        description={description}
+        category={category}
+        onNameChange={setName}
+        onDescriptionChange={setDescription}
+        onCategoryChange={setCategory}
       />
-      <Text style={styles.label}>Description</Text>
-      <TextInput
-        style={[styles.input, styles.description]}
-        value={description}
-        onChangeText={setDescription}
-        placeholder="Enter description"
-        multiline
-      />
-      <Text style={styles.label}>Category</Text>
-      <CategoryPicker selected={category} onSelect={setCategory} />
       <TouchableOpacity style={styles.button} onPress={handleAdd}>
         <Text style={styles.buttonText}>Add Task</Text>
       </TouchableOpacity>

@@ -7,20 +7,21 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 
-import { styles } from "../styles/shared";
 import { Category } from "../components/Types";
-import CategoryPicker from "../components/CategoryPicker";
+import { styles } from "../styles/shared";
 
+import TaskForm from "../components/TaskForm";
 import { auth, db } from "../firebaseConfig";
-const userId = auth.currentUser!.uid;
 
 export default function EditTask() {
-  const router = useRouter();
   const { id, name, description, done, category } = useLocalSearchParams();
 
-  const [categories, setCategories] = useState<Category[]>([]);
+  const userId = auth.currentUser!.uid;
+  const router = useRouter();
+
+  // const [categories, setCategories] = useState<Category[]>([])
 
   const [taskName, setTaskName] = useState(name as string);
   const [taskDescription, setTaskDescription] = useState(description as string);
@@ -36,7 +37,7 @@ export default function EditTask() {
           id: doc.id,
           name: doc.data().name,
         }));
-        setCategories(cats);
+        // setCategories(cats);
         if (cats.length > 0 && !category) {
           setTaskCategory(cats[0].name); // default to first category
         }
@@ -60,42 +61,36 @@ export default function EditTask() {
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      "Delete Task",
-      "Are you sure?",
-      [
-        {
-          text: "Delete",
-          onPress: () => {
-            deleteDoc(doc(db, "users", userId!, "tasks", id as string));
-            router.back();
-          },
-        },
-      ],
-      { cancelable: true },
-    );
+    // Alert.alert(
+    //   "Delete Task",
+    //   "Are you sure?",
+    //   [
+    //     {
+    //       text: "Delete",
+    //       onPress: () => {
+    //         deleteDoc(doc(db, "users", userId!, "tasks", id as string));
+    //         router.back();
+    //       },
+    //     },
+    //   ],
+    //   { cancelable: true },
+    // );
+
+    deleteDoc(doc(db, "users", userId!, "tasks", id as string));
+    router.back();
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Task Name</Text>
-      <TextInput
-        style={styles.input}
-        value={taskName}
-        onChangeText={setTaskName}
+      <TaskForm
+        name={taskName}
+        description={taskDescription}
+        category={taskCategory}
+        onNameChange={setTaskName}
+        onDescriptionChange={setTaskDescription}
+        onCategoryChange={setTaskCategory}
       />
 
-      <Text style={styles.label}>Description</Text>
-      <TextInput
-        style={[styles.input, styles.description]}
-        value={taskDescription}
-        onChangeText={setTaskDescription}
-        multiline
-      />
-      <Text style={styles.label}>Category</Text>
-      <View style={styles.filterContainer}>
-        <CategoryPicker selected={taskCategory} onSelect={setTaskCategory} />
-      </View>
       <TouchableOpacity
         style={styles.statusButton}
         onPress={() => setIsDone(!isDone)}

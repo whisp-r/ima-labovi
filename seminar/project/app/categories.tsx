@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react";
+import { getAuth } from "firebase/auth";
 import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-} from "react-native";
-import {
-  collection,
   addDoc,
+  collection,
   deleteDoc,
   doc,
-  getDocs,
-  onSnapshot,
   getFirestore,
+  onSnapshot,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { useEffect, useState } from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import "../firebaseConfig";
 
@@ -30,7 +29,7 @@ interface Category {
 export default function Categories() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState("");
-  const userId = auth.currentUser?.uid;
+  const userId = auth.currentUser!.uid;
 
   useEffect(() => {
     if (!userId) return;
@@ -49,14 +48,14 @@ export default function Categories() {
 
   const addCategory = async () => {
     if (!newCategory.trim()) return;
-    await addDoc(collection(db, "users", userId!, "categories"), {
+    await addDoc(collection(db, "users", userId, "categories"), {
       name: newCategory.trim(),
     });
     setNewCategory("");
   };
 
   const removeCategory = async (id: string) => {
-    await deleteDoc(doc(db, "users", userId!, "categories", id));
+    await deleteDoc(doc(db, "users", userId, "categories", id));
   };
 
   return (

@@ -96,4 +96,4 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 16,
   },
-});
+  });

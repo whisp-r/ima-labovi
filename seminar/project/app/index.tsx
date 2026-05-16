@@ -3,23 +3,23 @@ import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 
-import { styles } from "../styles/shared";
-import { Category, Task } from "../components/Types";
 import CategoryPicker from "../components/CategoryPicker";
+import { ALL_CATEGORY, Category, Task } from "../components/Types";
+import { styles } from "../styles/shared";
 
 import { auth, db } from "../firebaseConfig";
-const userId = auth.currentUser!.uid;
-
-const router = useRouter();
 
 export default function Home() {
+  const userId = auth.currentUser!.uid;
+  const router = useRouter();
+
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filterCategory, setFilterCategory] = useState("All");
 
   const [categories, setCategories] = useState<Category[]>([]);
 
   const filteredTasks =
-    filterCategory === "All"
+    filterCategory === ALL_CATEGORY
       ? tasks
       : tasks.filter((t) => t.category === filterCategory);
 

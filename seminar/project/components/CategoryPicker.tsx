@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 
 import { auth, db } from "../firebaseConfig";
-import { Category } from "../components/Types";
+import { ALL_CATEGORY, Category } from "../components/Types";
 
 interface Props {
   selected: string;
@@ -23,7 +23,8 @@ export default function CategoryPicker({ selected, onSelect }: Props) {
           id: doc.id,
           name: doc.data().name,
         }));
-        setCategories(cats);
+        setCategories([{ id: "all", name: ALL_CATEGORY }, ...cats]);
+        if (!selected) onSelect(ALL_CATEGORY);
       },
     );
     return unsubscribe;
