@@ -7,6 +7,7 @@ import { styles } from "@/styles/shared";
 
 import TaskForm from "@/components/TaskForm";
 import { auth, db } from "@/firebaseConfig";
+import AppButton from "@/components/AppButton";
 
 export default function EditTask() {
   const { id, name, description, done, category } = useLocalSearchParams();
@@ -21,12 +22,12 @@ export default function EditTask() {
   const [isDone, setIsDone] = useState(done === "true");
   const [taskCategory, setTaskCategory] = useState(category as string);
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     if (!taskName.trim()) {
       Alert.alert("Error", "Task name is required");
       return;
     }
-    updateDoc(doc(db, "users", userId, "tasks", id as string), {
+    await updateDoc(doc(db, "users", userId, "tasks", id as string), {
       name: taskName,
       description: taskDescription,
       done: isDone,
@@ -35,8 +36,8 @@ export default function EditTask() {
     router.back();
   };
 
-  const handleDelete = () => {
-    deleteDoc(doc(db, "users", userId, "tasks", id as string));
+  const handleDelete = async () => {
+    await deleteDoc(doc(db, "users", userId, "tasks", id as string));
     router.back();
   };
 
@@ -60,13 +61,16 @@ export default function EditTask() {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={handleUpdate}>
-        <Text style={styles.buttonText}>Save Changes</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-        <Text style={styles.buttonText}>Delete Task</Text>
-      </TouchableOpacity>
+      <AppButton
+        label="Save Changes"
+        onPress={handleUpdate}
+        buttonStyle={styles.blue}
+      />
+      <AppButton
+        label="Delete Task"
+        onPress={handleDelete}
+        buttonStyle={styles.red}
+      />
     </View>
   );
 }

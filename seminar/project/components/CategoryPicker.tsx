@@ -24,7 +24,7 @@ export default function CategoryPicker({ selected, onSelect }: Props) {
           name: doc.data().name,
         }));
         setCategories([{ id: "all", name: ALL_CATEGORY }, ...cats]);
-        if (!selected) onSelect(ALL_CATEGORY);
+        if (!selected && cats.length > 0) onSelect(ALL_CATEGORY);
       },
     );
     return unsubscribe;

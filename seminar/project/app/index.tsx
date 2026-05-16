@@ -1,13 +1,20 @@
 import { Link, useFocusEffect, useRouter } from "expo-router";
 import { collection, getDocs } from "firebase/firestore";
 import { useCallback, useState } from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import CategoryPicker from "@/components/CategoryPicker";
 import { ALL_CATEGORY, Task } from "@/components/Types";
 import { styles } from "@/styles/shared";
 
 import { auth, db } from "@/firebaseConfig";
+import AppButton from "@/components/AppButton";
 
 export default function Home() {
   const userId = auth.currentUser!.uid;
@@ -15,11 +22,16 @@ export default function Home() {
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filterCategory, setFilterCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredTasks =
-    filterCategory === ALL_CATEGORY
-      ? tasks
-      : tasks.filter((t) => t.category === filterCategory);
+  const filteredTasks = tasks.filter((t) => {
+    const matchesCategory =
+      filterCategory === ALL_CATEGORY || t.category === filterCategory;
+    const matchesSearch = t.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   const fetchTasks = () => {
     getDocs(collection(db, "users", userId, "tasks")).then((snapshot) => {
@@ -38,23 +50,24 @@ export default function Home() {
   );
 
   return (
-    <View style={styles.main}>
-      <TouchableOpacity style={styles.button}>
-        <Link href="/add_task" style={styles.buttonText}>
-          + Add Task
-        </Link>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Link href="/categories" style={styles.buttonText}>
-          Categories
-        </Link>
-      </TouchableOpacity>
-      <View style={styles.filterContainer}>
-        <CategoryPicker
-          selected={filterCategory}
-          onSelect={setFilterCategory}
-        />
-      </View>
+    <View style={styles.container}>
+      <AppButton
+        label="+ Add Task"
+        href="/add_task"
+        buttonStyle={styles.green}
+      />
+      <AppButton
+        label="Categories"
+        href="/categories"
+        buttonStyle={styles.blue}
+      />
+      <TextInput
+        style={styles.input}
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+        placeholder="Search tasks..."
+      />
+      <CategoryPicker selected={filterCategory} onSelect={setFilterCategory} />
       <FlatList
         data={filteredTasks}
         keyExtractor={(item) => item.id}

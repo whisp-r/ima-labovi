@@ -7,6 +7,7 @@ import { styles } from "@/styles/shared";
 import { ALL_CATEGORY } from "@/components/Types";
 import TaskForm from "@/components/TaskForm";
 import { auth, db } from "@/firebaseConfig";
+import AppButton from "@/components/AppButton";
 
 export default function AddTask() {
   const userId = auth.currentUser!.uid;
@@ -16,13 +17,13 @@ export default function AddTask() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState(ALL_CATEGORY);
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!name.trim()) {
       Alert.alert("Error", "Task name is required");
       return;
     }
 
-    addDoc(collection(db, "users", userId, "tasks"), {
+    await addDoc(collection(db, "users", userId, "tasks"), {
       name: name.trim(),
       description: description.trim(),
       done: false,
@@ -42,9 +43,11 @@ export default function AddTask() {
         onDescriptionChange={setDescription}
         onCategoryChange={setCategory}
       />
-      <TouchableOpacity style={styles.button} onPress={handleAdd}>
-        <Text style={styles.buttonText}>Add Task</Text>
-      </TouchableOpacity>
+      <AppButton
+        label="Add Task"
+        onPress={handleAdd}
+        buttonStyle={styles.green}
+      />
     </View>
   );
 }

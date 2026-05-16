@@ -1,101 +1,84 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    alignItems: "center",
-    paddingTop: 24,
-  },
-  task: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
-  taskName: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-
-  filterContainer: {
-    flexDirection: "row",
-    marginBottom: 16,
-  },
-  filterChip: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-    backgroundColor: "#f0f0f0",
-    marginRight: 8,
-  },
-  filterChipActive: {
-    backgroundColor: "#28a745",
-  },
-  filterText: {
-    fontSize: 14,
-  },
-  filterTextActive: {
-    color: "#fff",
-  },
-  category: {
-    color: "#666",
-    fontSize: 14,
-  },
-  categoryContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginBottom: 16,
-  },
-  categoryChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: "#f0f0f0",
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  categoryChipActive: {
-    backgroundColor: "#007bff",
-  },
-  categoryText: {
-    color: "#333",
-  },
-  categoryTextActive: {
-    color: "#fff",
-  },
+  // Layout
   container: { flex: 1, padding: 24 },
-  label: { fontSize: 16, fontWeight: "600", marginBottom: 8 },
+  row: { flexDirection: "row", alignItems: "center" },
+  center: { justifyContent: "center", alignItems: "center" },
+
+  // Inputs
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
     padding: 12,
     marginBottom: 16,
+    fontSize: 16,
+    width: "100%",
   },
+  inputRow: { flexDirection: "row", marginBottom: 24, gap: 8 },
+  inputFlex: { flex: 1 },
   description: { height: 100, textAlignVertical: "top" },
-  statusButton: { padding: 14, alignItems: "center", marginBottom: 16 },
-  statusText: { fontSize: 18 },
 
-  buttonText: { color: "#fff", fontWeight: "600", fontSize: 16 },
+  // Buttons
   button: {
-    backgroundColor: "#007bff",
     padding: 16,
     borderRadius: 8,
     alignItems: "center",
     marginBottom: 12,
   },
-  deleteButton: {
-    backgroundColor: "#dc3545",
-    padding: 16,
-    borderRadius: 8,
+  buttonText: { color: "#fff", fontWeight: "600", fontSize: 16 },
+  blue: { backgroundColor: "#007bff" },
+  green: { backgroundColor: "#28a745" },
+  red: { backgroundColor: "#dc3545" },
+  grey: { backgroundColor: "#f0f0f0" },
+  circleButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    justifyContent: "center",
     alignItems: "center",
   },
-  addButton: {
-    backgroundColor: "#28a745",
-    padding: 14,
-    borderRadius: 8,
-    alignItems: "center",
-    marginBottom: 16,
+  addText: { color: "#fff", fontSize: 24, fontWeight: "bold" },
+  deleteIcon: {
+    fontSize: 18,
+    color: "#dc3545",
+    fontWeight: "bold",
+    padding: 8,
   },
+
+  // Chips
+  chip: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  chipActive: { backgroundColor: "#28a745" },
+  chipText: { fontSize: 14 },
+  chipTextActive: { color: "#fff" },
+
+  // Category picker
+  categoryChip: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  categoryChipActive: { backgroundColor: "#007bff" },
+  categoryText: { color: "#333" },
+  categoryTextActive: { color: "#fff" },
+
+  // Task list
+  task: { padding: 16, borderBottomWidth: 1, borderBottomColor: "#ccc" },
+  taskName: { fontSize: 18, fontWeight: "bold" },
+  category: { color: "#666", fontSize: 14 },
+  statusButton: { padding: 14, alignItems: "center", marginBottom: 16 },
+  statusText: { fontSize: 18 },
+
+  // Category list
   categoryRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -104,20 +87,8 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#eee",
   },
-  deleteIcon: {
-    fontSize: 18,
-    color: "#dc3545",
-    fontWeight: "bold",
-    padding: 8,
-  },
-  inputRow: {
-    flexDirection: "row",
-    marginBottom: 24,
-    gap: 8,
-  },
-  addText: {
-    color: "#fff",
-    fontSize: 24,
-    fontWeight: "bold",
-  },
+  categoryTextLarge: { fontSize: 16 },
+
+  // Labels
+  label: { fontSize: 16, fontWeight: "600", marginBottom: 8 },
 });
