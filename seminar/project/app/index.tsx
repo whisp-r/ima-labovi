@@ -1,4 +1,4 @@
-import { Link, useFocusEffect } from "expo-router";
+import { Link, useFocusEffect, useRouter } from "expo-router";
 import {
   FlatList,
   StyleSheet,
@@ -22,6 +22,8 @@ interface Task {
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  const router = useRouter();
 
   const fetchTasks = () => {
     getDocs(collection(db, "tasks")).then((snapshot) => {
@@ -53,10 +55,23 @@ export default function Home() {
         data={tasks}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.task}>
+          <TouchableOpacity
+            style={styles.task}
+            onPress={() =>
+              router.push({
+                pathname: "/edit_task",
+                params: {
+                  id: item.id,
+                  name: item.name,
+                  description: item.description,
+                  done: String(item.done),
+                },
+              })
+            }
+          >
             <Text style={styles.taskName}>{item.name}</Text>
             <Text>{item.done ? "✅ Done" : "❌ Not done"}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
