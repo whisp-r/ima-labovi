@@ -1,7 +1,7 @@
 // components/TaskForm.tsx
-import { View, Text, TextInput } from "react-native";
-import CategoryPicker from "./CategoryPicker";
-import { styles } from "../styles/shared";
+import CategoryPicker from "@/components/CategoryPicker";
+import { styles } from "@/styles/shared";
+import { Text, TextInput, View } from "react-native";
 
 interface Props {
   name: string;

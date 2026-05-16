@@ -3,11 +3,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { useCallback, useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 
-import CategoryPicker from "../components/CategoryPicker";
-import { ALL_CATEGORY, Task } from "../components/Types";
-import { styles } from "../styles/shared";
+import CategoryPicker from "@/components/CategoryPicker";
+import { ALL_CATEGORY, Task } from "@/components/Types";
+import { styles } from "@/styles/shared";
 
-import { auth, db } from "../firebaseConfig";
+import { auth, db } from "@/firebaseConfig";
 
 export default function Home() {
   const userId = auth.currentUser!.uid;

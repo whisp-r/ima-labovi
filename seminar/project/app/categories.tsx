@@ -1,38 +1,30 @@
-import { getAuth } from "firebase/auth";
 import {
   addDoc,
   collection,
   deleteDoc,
   doc,
-  getFirestore,
   onSnapshot,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {
   FlatList,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 
-import "../firebaseConfig";
-
-const auth = getAuth();
-const db = getFirestore();
-interface Category {
-  id: string;
-  name: string;
-}
+import { Category } from "@/components/Types";
+import { styles } from "@/styles/shared";
+import { auth, db } from "@/firebaseConfig";
 
 export default function Categories() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [newCategory, setNewCategory] = useState("");
   const userId = auth.currentUser!.uid;
 
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [newCategory, setNewCategory] = useState("");
+
   useEffect(() => {
-    if (!userId) return;
     const unsubscribe = onSnapshot(
       collection(db, "users", userId, "categories"),
       (snapshot) => {
@@ -88,52 +80,52 @@ export default function Categories() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-  },
-  inputRow: {
-    flexDirection: "row",
-    marginBottom: 24,
-    gap: 8,
-  },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-  },
-  addButton: {
-    backgroundColor: "#007bff",
-    width: 48,
-    height: 48,
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  addText: {
-    color: "#fff",
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  categoryRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
-  },
-  categoryText: {
-    fontSize: 16,
-  },
-  deleteIcon: {
-    fontSize: 18,
-    color: "#dc3545",
-    fontWeight: "bold",
-    padding: 8,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 24,
+//   },
+//   inputRow: {
+//     flexDirection: "row",
+//     marginBottom: 24,
+//     gap: 8,
+//   },
+//   input: {
+//     flex: 1,
+//     borderWidth: 1,
+//     borderColor: "#ccc",
+//     borderRadius: 8,
+//     padding: 12,
+//     fontSize: 16,
+//   },
+//   addButton: {
+//     backgroundColor: "#007bff",
+//     width: 48,
+//     height: 48,
+//     borderRadius: 8,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   addText: {
+//     color: "#fff",
+//     fontSize: 24,
+//     fontWeight: "bold",
+//   },
+//   categoryRow: {
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     alignItems: "center",
+//     paddingVertical: 14,
+//     borderBottomWidth: 1,
+//     borderBottomColor: "#eee",
+//   },
+//   categoryText: {
+//     fontSize: 16,
+//   },
+//   deleteIcon: {
+//     fontSize: 18,
+//     color: "#dc3545",
+//     fontWeight: "bold",
+//     padding: 8,
+//   },
+// });

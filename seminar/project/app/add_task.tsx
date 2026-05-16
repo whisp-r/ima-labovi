@@ -2,11 +2,11 @@ import { useRouter } from "expo-router";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
-import { styles } from "../styles/shared";
+import { styles } from "@/styles/shared";
 
 import { ALL_CATEGORY } from "@/components/Types";
-import TaskForm from "../components/TaskForm";
-import { auth, db } from "../firebaseConfig";
+import TaskForm from "@/components/TaskForm";
+import { auth, db } from "@/firebaseConfig";
 
 export default function AddTask() {
   const userId = auth.currentUser!.uid;

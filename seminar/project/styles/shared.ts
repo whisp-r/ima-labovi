@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
   description: { height: 100, textAlignVertical: "top" },
   statusButton: { padding: 14, alignItems: "center", marginBottom: 16 },
   statusText: { fontSize: 18 },
-  
+
   buttonText: { color: "#fff", fontWeight: "600", fontSize: 16 },
   button: {
     backgroundColor: "#007bff",
@@ -87,7 +87,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#dc3545",
     padding: 16,
     borderRadius: 8,
-    alignItems: "center"
+    alignItems: "center",
   },
   addButton: {
     backgroundColor: "#28a745",
@@ -96,4 +96,28 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 16,
   },
-  });
+  categoryRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  deleteIcon: {
+    fontSize: 18,
+    color: "#dc3545",
+    fontWeight: "bold",
+    padding: 8,
+  },
+  inputRow: {
+    flexDirection: "row",
+    marginBottom: 24,
+    gap: 8,
+  },
+  addText: {
+    color: "#fff",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+});

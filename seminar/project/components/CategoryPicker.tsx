@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { collection, getFirestore, onSnapshot } from "firebase/firestore";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { auth, db } from "../firebaseConfig";
-import { ALL_CATEGORY, Category } from "../components/Types";
+import { ALL_CATEGORY, Category } from "@/components/Types";
+import { auth, db } from "@/firebaseConfig";
 
 interface Props {
   selected: string;
