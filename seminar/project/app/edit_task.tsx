@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,48 +8,89 @@ import {
   Alert,
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
-import { doc, updateDoc, deleteDoc, getFirestore } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  deleteDoc,
+  getFirestore,
+  onSnapshot,
+  collection,
+} from "firebase/firestore";
 
 import "../firebaseConfig";
+import { getAuth } from "firebase/auth";
+import CategoryPicker from "../components/CategoryPicker";
+import { styles } from "../styles/shared";
+
 const db = getFirestore();
+const auth = getAuth();
+
+const userId = auth.currentUser?.uid;
+
+interface Category {
+  id: string;
+  name: string;
+}
 
 export default function EditTask() {
   const router = useRouter();
-  const { id, name, description, done } = useLocalSearchParams();
+  const { id, name, description, done, category } = useLocalSearchParams();
+
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const [taskName, setTaskName] = useState(name as string);
   const [taskDescription, setTaskDescription] = useState(description as string);
   const [isDone, setIsDone] = useState(done === "true");
+  const [taskCategory, setTaskCategory] = useState(category as string);
+
+  useEffect(() => {
+    if (!userId) return;
+    const unsubscribe = onSnapshot(
+      collection(db, "users", userId, "categories"),
+      (snapshot) => {
+        const cats: Category[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name,
+        }));
+        setCategories(cats);
+        if (cats.length > 0 && !category) {
+          setTaskCategory(cats[0].name); // default to first category
+        }
+      },
+    );
+    return unsubscribe;
+  }, [userId]);
 
   const handleUpdate = () => {
-    updateDoc(doc(db, "tasks", id as string), {
+    if (!taskName.trim()) {
+      Alert.alert("Error", "Task name is required");
+      return;
+    }
+    updateDoc(doc(db, "users", userId!, "tasks", id as string), {
       name: taskName,
       description: taskDescription,
       done: isDone,
+      category: taskCategory,
     });
+    router.back();
   };
 
-const handleDelete = () => {
-  console.log("1. handleDelete called");
-  console.log("2. task id:", id);
-
-  // Try without cancel button first
-//   Alert.alert(
-//     "Delete Task",
-//     "Are you sure?",
-//     [
-//       {
-//         text: "Delete",
-//         onPress: () => {
-//           console.log("Delete confirmed");
-//           deleteDoc(doc(db, "tasks", id as string));
-//         },
-//       },
-//     ],
-//     { cancelable: true }
-//   );
-    Alert.alert("test");
-};
+  const handleDelete = () => {
+    Alert.alert(
+      "Delete Task",
+      "Are you sure?",
+      [
+        {
+          text: "Delete",
+          onPress: () => {
+            deleteDoc(doc(db, "users", userId!, "tasks", id as string));
+            router.back();
+          },
+        },
+      ],
+      { cancelable: true },
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -67,7 +108,10 @@ const handleDelete = () => {
         onChangeText={setTaskDescription}
         multiline
       />
-
+      <Text style={styles.label}>Category</Text>
+      <View style={styles.filterContainer}>
+        <CategoryPicker selected={taskCategory} onSelect={setTaskCategory} />
+      </View>
       <TouchableOpacity
         style={styles.statusButton}
         onPress={() => setIsDone(!isDone)}
@@ -87,33 +131,3 @@ const handleDelete = () => {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24 },
-  label: { fontSize: 16, fontWeight: "600", marginBottom: 8 },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-  },
-  description: { height: 100, textAlignVertical: "top" },
-  statusButton: { padding: 14, alignItems: "center", marginBottom: 16 },
-  statusText: { fontSize: 18 },
-  button: {
-    backgroundColor: "#007bff",
-    padding: 16,
-    borderRadius: 8,
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  buttonText: { color: "#fff", fontWeight: "600", fontSize: 16 },
-  deleteButton: {
-    backgroundColor: "#dc3545",
-    padding: 16,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  deleteText: { color: "#fff", fontWeight: "600", fontSize: 16 },
-});
