@@ -1,10 +1,10 @@
 import { Link, useFocusEffect, useRouter } from "expo-router";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
-import { useCallback, useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { useCallback, useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 
 import CategoryPicker from "../components/CategoryPicker";
-import { ALL_CATEGORY, Category, Task } from "../components/Types";
+import { ALL_CATEGORY, Task } from "../components/Types";
 import { styles } from "../styles/shared";
 
 import { auth, db } from "../firebaseConfig";
@@ -16,16 +16,12 @@ export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filterCategory, setFilterCategory] = useState("All");
 
-  const [categories, setCategories] = useState<Category[]>([]);
-
   const filteredTasks =
     filterCategory === ALL_CATEGORY
       ? tasks
       : tasks.filter((t) => t.category === filterCategory);
 
   const fetchTasks = () => {
-    const userId = String(auth.currentUser?.uid);
-
     getDocs(collection(db, "users", userId, "tasks")).then((snapshot) => {
       const taskList = snapshot.docs.map((doc) => ({
         ...doc.data(),
@@ -34,21 +30,6 @@ export default function Home() {
       setTasks(taskList);
     });
   };
-
-  useEffect(() => {
-    if (!userId) return;
-    const unsubscribe = onSnapshot(
-      collection(db, "users", userId, "categories"),
-      (snapshot) => {
-        const cats: Category[] = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          name: doc.data().name,
-        }));
-        setCategories(cats);
-      },
-    );
-    return unsubscribe;
-  }, [userId]);
 
   useFocusEffect(
     useCallback(() => {
