@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {
+  Alert,
   FlatList,
   Text,
   TextInput,
@@ -41,6 +42,15 @@ export default function Categories() {
 
   const addCategory = async () => {
     if (!newCategory.trim()) return;
+    
+    const exists = categories.some(
+      (cat) => cat.name.toLowerCase() === newCategory.trim().toLowerCase(),
+    );
+    if (exists) {
+      Alert.alert("Error", "Category already exists");
+      return;
+    }
+
     await addDoc(collection(db, "users", userId, "categories"), {
       name: newCategory.trim(),
     });
@@ -60,7 +70,10 @@ export default function Categories() {
           onChangeText={setNewCategory}
           placeholder="New category"
         />
-        <TouchableOpacity style={[styles.circleButton, styles.blue]} onPress={addCategory}>
+        <TouchableOpacity
+          style={[styles.circleButton, styles.blue]}
+          onPress={addCategory}
+        >
           <Text style={styles.addText}>+</Text>
         </TouchableOpacity>
       </View>

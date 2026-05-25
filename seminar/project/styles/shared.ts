@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
   blue: { backgroundColor: "#007bff" },
   green: { backgroundColor: "#28a745" },
   red: { backgroundColor: "#dc3545" },
-  grey: { backgroundColor: "#f0f0f0" },
+  grey: { backgroundColor: "#6c757d" },
   circleButton: {
     width: 48,
     height: 48,
@@ -74,9 +74,27 @@ export const styles = StyleSheet.create({
   // Task list
   task: { padding: 16, borderBottomWidth: 1, borderBottomColor: "#ccc" },
   taskName: { fontSize: 18, fontWeight: "bold" },
+  taskDone: {
+    textDecorationLine: "line-through",
+    color: "#999",
+  },
+  taskRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
   category: { color: "#666", fontSize: 14 },
   statusButton: { padding: 14, alignItems: "center", marginBottom: 16 },
   statusText: { fontSize: 18 },
+  checkbox: {
+    marginRight: 12,
+    padding: 4,
+  },
+  checkboxText: {
+    fontSize: 35,
+  },
 
   // Category list
   categoryRow: {

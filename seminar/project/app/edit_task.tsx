@@ -36,9 +36,18 @@ export default function EditTask() {
     router.back();
   };
 
-  const handleDelete = async () => {
-    await deleteDoc(doc(db, "users", userId, "tasks", id as string));
-    router.back();
+  const handleDelete = () => {
+    Alert.alert("Delete Task", "Are you sure?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          await deleteDoc(doc(db, "users", userId, "tasks", id as string));
+          router.back();
+        },
+      },
+    ]);
   };
 
   return (
@@ -52,14 +61,13 @@ export default function EditTask() {
         onCategoryChange={setTaskCategory}
       />
 
-      <TouchableOpacity
-        style={styles.statusButton}
-        onPress={() => setIsDone(!isDone)}
-      >
-        <Text style={styles.statusText}>
-          {isDone ? "✅ Done" : "❌ Not done"}
-        </Text>
-      </TouchableOpacity>
+      <AppButton
+        label={isDone ? "Mark as Incomplete" : "Mark as Complete"}
+        onPress={() => {
+          setIsDone(!isDone);
+        }}
+        buttonStyle={isDone ? styles.grey : styles.green}
+      />
 
       <AppButton
         label="Save Changes"

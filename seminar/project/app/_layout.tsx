@@ -20,7 +20,7 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Protected guard={isLoggedIn}>
-        <Stack.Screen name="index" options={{ title: "Home" }} />
+        <Stack.Screen name="index" options={{ title: "To-Do List" }} />
         <Stack.Screen name="add_task" options={{ title: "Add Task" }} />
         <Stack.Screen name="edit_task" options={{ title: "Edit Task" }} />
         <Stack.Screen name="categories" options={{ title: "Categories" }} />
