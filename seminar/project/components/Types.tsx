@@ -4,6 +4,7 @@ export interface Task {
   description: string;
   done: boolean;
   category: string;
+  priority: "Low" | "Medium" | "High";
 }
 
 export interface Category {

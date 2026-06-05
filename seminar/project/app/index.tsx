@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Switch,
 } from "react-native";
 
 import CategoryPicker from "@/components/CategoryPicker";
@@ -23,15 +24,14 @@ export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filterCategory, setFilterCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showUnfinishedOnly, setShowUnfinishedOnly] = useState(false);
 
-  const filteredTasks = tasks.filter((t) => {
-    const matchesCategory =
-      filterCategory === ALL_CATEGORY || t.category === filterCategory;
-    const matchesSearch = t.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredTasks = tasks
+    .filter(
+      (t) => filterCategory === ALL_CATEGORY || t.category === filterCategory,
+    )
+    .filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    .filter((t) => (showUnfinishedOnly ? !t.done : true));
 
   const fetchTasks = () => {
     getDocs(collection(db, "users", userId, "tasks")).then((snapshot) => {
@@ -74,6 +74,18 @@ export default function Home() {
         placeholder="Search tasks..."
       />
       <CategoryPicker selected={filterCategory} onSelect={setFilterCategory} />
+      <View
+        style={[
+          styles.row,
+          { marginBottom: 12, justifyContent: "space-between" },
+        ]}
+      >
+        <Text>Show unfinished only</Text>
+        <Switch
+          value={showUnfinishedOnly}
+          onValueChange={setShowUnfinishedOnly}
+        />
+      </View>
       <FlatList
         data={filteredTasks}
         keyExtractor={(item) => item.id}
@@ -103,7 +115,9 @@ export default function Home() {
               <Text style={[styles.taskName, item.done && styles.taskDone]}>
                 {item.name}
               </Text>
-              <Text style={styles.category}>{item.category}</Text>
+              <Text style={styles.category}>
+                {item.category} • {item.priority}
+              </Text>
             </TouchableOpacity>
           </View>
         )}

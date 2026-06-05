@@ -10,7 +10,7 @@ import { auth, db } from "@/firebaseConfig";
 import AppButton from "@/components/AppButton";
 
 export default function EditTask() {
-  const { id, name, description, done, category } = useLocalSearchParams();
+  const { id, name, description, done, category, priority } = useLocalSearchParams();
 
   const userId = auth.currentUser!.uid;
   const router = useRouter();
@@ -21,6 +21,7 @@ export default function EditTask() {
   const [taskDescription, setTaskDescription] = useState(description as string);
   const [isDone, setIsDone] = useState(done === "true");
   const [taskCategory, setTaskCategory] = useState(category as string);
+  const [taskPriority, setTaskPriority] = useState((priority as string) || "Medium");
 
   const handleUpdate = async () => {
     if (!taskName.trim()) {
@@ -32,6 +33,7 @@ export default function EditTask() {
       description: taskDescription,
       done: isDone,
       category: taskCategory,
+      priority: taskPriority
     });
     router.back();
   };
@@ -56,9 +58,11 @@ export default function EditTask() {
         name={taskName}
         description={taskDescription}
         category={taskCategory}
+        priority={taskPriority}
         onNameChange={setTaskName}
         onDescriptionChange={setTaskDescription}
         onCategoryChange={setTaskCategory}
+        onPriorityChange={setTaskPriority}
       />
 
       <AppButton

@@ -16,6 +16,7 @@ export default function AddTask() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState(ALL_CATEGORY);
+  const [priority, setPriority] = useState("Medium");
 
   const handleAdd = async () => {
     if (!name.trim()) {
@@ -28,6 +29,7 @@ export default function AddTask() {
       description: description.trim(),
       done: false,
       category,
+      priority,
     });
 
     router.back();
@@ -39,9 +41,11 @@ export default function AddTask() {
         name={name}
         description={description}
         category={category}
+        priority={priority}
         onNameChange={setName}
         onDescriptionChange={setDescription}
         onCategoryChange={setCategory}
+        onPriorityChange={setPriority}
       />
       <AppButton
         label="Add Task"
